@@ -1,0 +1,147 @@
+{
+    "name": "PlayerControls",
+    "maps": [
+        {
+            "name": "Game",
+            "id": "631ac154-645c-40a2-95c9-7ef11ee7284c",
+            "actions": [
+                {
+                    "name": "R_Move",
+                    "type": "Button",
+                    "id": "699ac630-1adc-4005-b32b-22234fd6a028",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "L_Move",
+                    "type": "Button",
+                    "id": "59ce9de3-6777-4c25-921a-7681275c3aea",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Separuj_Sklo",
+                    "type": "Button",
+                    "id": "8bb1b64e-e005-4696-b0b6-a3210cc98b67",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Separuj_Papier",
+                    "type": "Button",
+                    "id": "ed4d0cd1-d951-409e-a73a-20b46af1b08b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Separuj_Plasty",
+                    "type": "Button",
+                    "id": "1b01437b-8832-4965-a371-b514e3a60dc6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Start_Game",
+                    "type": "Button",
+                    "id": "de8fd18a-c45b-45d2-8a79-66bd551fb197",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "End_Game",
+                    "type": "Button",
+                    "id": "78f37276-4ae9-46a3-9d8e-f9cf4ac30386",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1cd39ebd-0e0b-415a-bd96-a459e8776304",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "R_Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a9f481bd-e047-4d2d-943f-b12a7c0f7c2b",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "L_Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f339a8b-a2bb-446a-83c3-21872b2c0d79",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Separuj_Sklo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "22a231c6-e151-40bd-9bf2-f7373435b1ba",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Separuj_Papier",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "35ce94ab-7fe1-4952-bacc-39635b451c41",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Separuj_Plasty",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "405a5928-3363-4385-960a-aa08924634c0",
+                    "path": "<XboxOneGampadiOS>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Start_Game",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "970d0d09-998f-4021-a23e-1519f60676f7",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "End_Game",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
