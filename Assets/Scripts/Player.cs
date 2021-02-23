@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     PlayerControls controls;
-
+    Vector3 move;
     public static Player instance;
 
     [SerializeField]
@@ -20,82 +20,53 @@ public class Player : MonoBehaviour
     {
         if (instance == null) instance = this;
 
-        controls = new PlayerControls();
-        controls.Game.R_Move.performed += ctx => moveRight();
     }
 
 
-    
+    private void Update()
 
-    // Update is called once per frame
-    void Update()
+
     {
-        /**
-        if (Input.GetMouseButtonDown(0))
+
+        Gamepad gamepad = Gamepad.current;
+        // The return value of `.current` cann be null.
+        if (gamepad == null)
         {
-            movingRight = !movingRight;
-            direction = -direction;
-            transform.localScale = new Vector3(direction, 1, 1);
-
-        if (startMoving == false) return;
-
-        ChangeDirection();
-
-        transform.position += Vector3.right * moveSpeed * Time.deltaTime * direction;
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -xLimit, xLimit), transform.position.y, transform.position.z);
-        }**/
-
-        transform.Translate(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime, 0, 0);
-        Vector3 characterScale = transform.localScale;
-        if(Input.GetAxis("Horizontal") < 0)
-        {
-            characterScale.x = -1;
+            return;
         }
-        if(Input.GetAxis("Horizontal") > 0)
+
+
+        if (InputManager.EndButton())
         {
-            characterScale.x = 1;
-        }
-        transform.localScale = characterScale;
-
-        /**
-        void ChangeDirection()
-        {
-            if (movingRight && transform.position.x >= xLimit)
-            {
-                movingRight = false;
-                direction = -1;
-                transform.localScale = new Vector3(direction, 1, 1);
-            }
-
-            if (!movingRight && transform.position.x <= -xLimit)
-            {
-                movingRight = true;
-                direction = 1;
-                transform.localScale = new Vector3(direction, 1, 1);
-            }
-        }
-        **/
-    }
-
-    private void moveRight()
-    {
-        transform.position *= new Vector2(5, -2);
-    }
-    
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        /**if (other.CompareTag("Falling"))
-        {
+            Debug.Log("HomeButton");
             MenuManager.instance.GameOver();
             gameObject.SetActive(false);
-        }**/
+
+            MenuManager.instance.HomeButton();
+            gameObject.SetActive(true);
+        }
+
+        //float amtToMove = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+        //transform.Translate(Vector3.right * amtToMove);
+        float amtToMove = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+        transform.Translate(new Vector2(10f,0f) * amtToMove);
+
+        
+
+
+
+
+    }
+
+    
+    public void OnTriggerEnter2D(Collider2D other)
+    {
         if(other.gameObject.name == "computer" || other.gameObject.name == "phone")
         {
             Debug.Log("quit");
             gameObject.SetActive(false);
             MenuManager.instance.GameOver();
-            gameObject.SetActive(false);
+            gameObject.SetActive(true);
         }
     }
 

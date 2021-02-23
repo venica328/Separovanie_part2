@@ -20,9 +20,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
             ""actions"": [
                 {
                     ""name"": ""R_Move"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""699ac630-1adc-4005-b32b-22234fd6a028"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
                 },

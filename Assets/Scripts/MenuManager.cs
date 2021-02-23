@@ -8,17 +8,7 @@ using UnityEngine.InputSystem;
 public class MenuManager : MonoBehaviour
 {
 
-    PlayerControls start;
-
     public static MenuManager instance;
-
-    private int selectedButtons = 1;
-    [SerializeField]
-    private int NumberOfButtons;
-
-    public Transform Button1;
-    public Transform Buttons2;
-    public Transform Button3;
 
     [SerializeField]
     private Text scoreText, separatingText, finalScore, finalSeparatedScore, countDown;
@@ -26,7 +16,7 @@ public class MenuManager : MonoBehaviour
     private GameObject gameMenu, gameOverMenu, menu;
 
     private int currentSeparating, currentScore;
-    private int timeLeft = 60;
+    private int timeLeft = 10;
 
 
 
@@ -35,11 +25,6 @@ public class MenuManager : MonoBehaviour
     {
         if (instance == null)
             instance = this;
-
-        start = new PlayerControls();
-        start.Game.Start_Game.performed += ctx => PlayButton();
-
-        onPlay();
     }
 
     // Start is called before the first frame update
@@ -47,30 +32,42 @@ public class MenuManager : MonoBehaviour
     {
         scoreText.text = "" + 0;
         separatingText.text = "" + 0;
+        if (gameMenu)
+        {
+            StartCoroutine("LoseTime");
+            Time.timeScale = 1;
+        }
 
-        StartCoroutine("LoseTime");
-        Time.timeScale = 1;
     }
 
     void Update()
     {
         countDown.text = ("" + timeLeft);
-        if(timeLeft == 0)
+        if (timeLeft == 0)
         {
             Application.Quit();
             MenuManager.instance.GameOver();
-            gameObject.SetActive(false);
+            if (InputManager.EndButton())
+            {
+                Debug.Log("Ide to Vejka");
+                HomeButton();
+            }
 
         }
+
+        PlayButton();
     }
+
 
     IEnumerator LoseTime()
     {
+
         while (true)
         {
             yield return new WaitForSeconds(1);
             timeLeft--;
         }
+
     }
 
 
@@ -84,45 +81,41 @@ public class MenuManager : MonoBehaviour
 
     public void IncreaseScore()
     {
-        currentScore++ ;
+        currentScore++;
         scoreText.text = "" + currentScore;
     }
 
 
     public void PlayButton()
     {
-        menu.SetActive(false);
-        gameMenu.SetActive(true);
-        Player.instance.StartMoving = true;
-    }
-
-    public void onPlay()
-    {
-        if(selectedButtons == 1)
+        if (InputManager.StartButton())
         {
-            PlayButton();
-        }
-        else if(selectedButtons == 2)
-        {
-            HomeButton();
+            menu.SetActive(false);
+            gameMenu.SetActive(true);
+            Player.instance.StartMoving = true;
+            
         }
     }
-
 
     public void GameOver()
     {
-            FallingObjects.instance.gameObject.SetActive(false);
-            gameMenu.SetActive(false);
-            menu.SetActive(false);
-            gameOverMenu.SetActive(true);
-            finalScore.text = "Spadnuté: " + currentScore;
-            finalSeparatedScore.text = "Vyzbierané: " + currentSeparating;
-           
-        
-    }
+       FallingObjects.instance.gameObject.SetActive(false);
+       Player.instance.StartMoving=(false);
+       gameMenu.SetActive(false);
+       menu.SetActive(false);
+       gameOverMenu.SetActive(true);
+       finalScore.text = "Spadnuté: " + currentScore;
+       finalSeparatedScore.text = "Vyzbierané: " + currentSeparating;
+     }
 
     public void HomeButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        FallingObjects.instance.gameObject.SetActive(false);
+        Player.instance.StartMoving = (false);
+        gameMenu.SetActive(false);
+        menu.SetActive(true);
+        gameOverMenu.SetActive(false);
+
     }
 }
