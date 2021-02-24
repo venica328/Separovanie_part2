@@ -5,8 +5,18 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    
     PlayerControls controls;
-    Vector3 move;
+    Vector2 move;
+    Vector3 middle = new Vector3(0f, -2.0f, 0.0f);
+    Vector3 right = new Vector3(5f, -2.0f, 0.0f);
+    Vector3 left = new Vector3(-5f, -2.0f, 0.0f);
+    Vector3 step = new Vector3(5f, 0.0f, 0.0f);
+    Vector3 start = new Vector3(0f, -2.0f, 0.0f);
+    Vector3 pom = Vector3.zero;
+
+
+    private GameObject player;
     public static Player instance;
 
     [SerializeField]
@@ -16,25 +26,24 @@ public class Player : MonoBehaviour
 
     public bool StartMoving { get { return startMoving; } set { startMoving = value; } }
 
-    private void Awake()
+    void Awake()
     {
         if (instance == null) instance = this;
 
+        controls = new PlayerControls();
+
+      //  controls.Game.Right.performed += ctx => right = ctx.ReadValue<Vector2>();
+        controls.Game.Right.performed += ctx => Move_Right();
+        controls.Game.Right.canceled += ctx => move = Vector2.zero;
+
+        controls.Game.Left.performed += ctx => Move_Left();
+        controls.Game.Left.canceled += ctx => move = Vector2.zero;
+
+        
     }
 
-
-    private void Update()
-
-
+    void Update()
     {
-
-        Gamepad gamepad = Gamepad.current;
-        // The return value of `.current` cann be null.
-        if (gamepad == null)
-        {
-            return;
-        }
-
 
         if (InputManager.EndButton())
         {
@@ -46,19 +55,41 @@ public class Player : MonoBehaviour
             gameObject.SetActive(true);
         }
 
-        //float amtToMove = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-        //transform.Translate(Vector3.right * amtToMove);
-        float amtToMove = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-        transform.Translate(new Vector2(10f,0f) * amtToMove);
-
-        
-
-
-
 
     }
 
-    
+    public Vector3 Move_Right()
+    {
+        //transform.position = right;
+        //transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+        transform.position = start + step;
+        transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+        pom = transform.position;
+
+        return pom;
+    }
+
+    public Vector3 Move_Left()
+    {
+       
+        transform.position = pom - step;
+        transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+
+        start = transform.position;
+        return start;
+    }
+
+    void OnEnable()
+    {
+        controls.Game.Enable();
+    }
+
+    void OnDisable()
+    {
+        controls.Game.Disable();
+    }
+
+
     public void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.name == "computer" || other.gameObject.name == "phone")

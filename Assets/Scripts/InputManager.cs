@@ -17,7 +17,7 @@ public static class InputManager
 
     public static bool RightButton()
     {
-        return Input.GetButton("Right_Button");
+        return Input.GetButton("Right");
     }
 
     public static bool LeftButton()

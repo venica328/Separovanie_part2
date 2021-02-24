@@ -38,6 +38,8 @@ public class MenuManager : MonoBehaviour
             Time.timeScale = 1;
         }
 
+
+
     }
 
     void Update()
@@ -56,6 +58,11 @@ public class MenuManager : MonoBehaviour
         }
 
         PlayButton();
+
+        if(InputManager.RightButton())
+        {
+            Debug.Log("Ide pravy!");
+        }
     }
 
 

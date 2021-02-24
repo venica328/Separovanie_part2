@@ -19,18 +19,18 @@ public class @PlayerControls : IInputActionCollection, IDisposable
             ""id"": ""631ac154-645c-40a2-95c9-7ef11ee7284c"",
             ""actions"": [
                 {
-                    ""name"": ""R_Move"",
-                    ""type"": ""Value"",
+                    ""name"": ""Right"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""699ac630-1adc-4005-b32b-22234fd6a028"",
-                    ""expectedControlType"": ""Axis"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""L_Move"",
-                    ""type"": ""Button"",
+                    ""name"": ""Left"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""59ce9de3-6777-4c25-921a-7681275c3aea"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
@@ -77,26 +77,26 @@ public class @PlayerControls : IInputActionCollection, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""1cd39ebd-0e0b-415a-bd96-a459e8776304"",
-                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""name"": ""2D Vector"",
+                    ""id"": ""19017ee8-f286-4b34-afbd-128f52b5711b"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""R_Move"",
-                    ""isComposite"": false,
+                    ""action"": ""Right"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""a9f481bd-e047-4d2d-943f-b12a7c0f7c2b"",
-                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""name"": ""right"",
+                    ""id"": ""6e695f65-5a46-4284-af03-c82cd7260c99"",
+                    ""path"": ""<XInputController>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""L_Move"",
+                    ""action"": ""Right"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
@@ -152,21 +152,85 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""End_Game"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""14167c0e-9c36-4c66-8f0e-c392e8cdd486"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Left"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""d9c6cb2c-8206-409f-8c5b-40cbaa991de2"",
+                    ""path"": ""<XInputController>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox Control Scheme"",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
+        },
+        {
+            ""name"": ""New action map"",
+            ""id"": ""7530fae0-a8c9-4657-8ac8-6e96fba71163"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""3f630f6d-8275-4bc5-98cb-24a59b704e36"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""7409e7f5-6490-48cb-924c-5ae4c922815f"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""Xbox Control Scheme"",
+            ""bindingGroup"": ""Xbox Control Scheme"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<XboxOneGampadiOS>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
         // Game
         m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
-        m_Game_R_Move = m_Game.FindAction("R_Move", throwIfNotFound: true);
-        m_Game_L_Move = m_Game.FindAction("L_Move", throwIfNotFound: true);
+        m_Game_Right = m_Game.FindAction("Right", throwIfNotFound: true);
+        m_Game_Left = m_Game.FindAction("Left", throwIfNotFound: true);
         m_Game_Separuj_Sklo = m_Game.FindAction("Separuj_Sklo", throwIfNotFound: true);
         m_Game_Separuj_Papier = m_Game.FindAction("Separuj_Papier", throwIfNotFound: true);
         m_Game_Separuj_Plasty = m_Game.FindAction("Separuj_Plasty", throwIfNotFound: true);
         m_Game_Start_Game = m_Game.FindAction("Start_Game", throwIfNotFound: true);
         m_Game_End_Game = m_Game.FindAction("End_Game", throwIfNotFound: true);
+        // New action map
+        m_Newactionmap = asset.FindActionMap("New action map", throwIfNotFound: true);
+        m_Newactionmap_Newaction = m_Newactionmap.FindAction("New action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -216,8 +280,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     // Game
     private readonly InputActionMap m_Game;
     private IGameActions m_GameActionsCallbackInterface;
-    private readonly InputAction m_Game_R_Move;
-    private readonly InputAction m_Game_L_Move;
+    private readonly InputAction m_Game_Right;
+    private readonly InputAction m_Game_Left;
     private readonly InputAction m_Game_Separuj_Sklo;
     private readonly InputAction m_Game_Separuj_Papier;
     private readonly InputAction m_Game_Separuj_Plasty;
@@ -227,8 +291,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     {
         private @PlayerControls m_Wrapper;
         public GameActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @R_Move => m_Wrapper.m_Game_R_Move;
-        public InputAction @L_Move => m_Wrapper.m_Game_L_Move;
+        public InputAction @Right => m_Wrapper.m_Game_Right;
+        public InputAction @Left => m_Wrapper.m_Game_Left;
         public InputAction @Separuj_Sklo => m_Wrapper.m_Game_Separuj_Sklo;
         public InputAction @Separuj_Papier => m_Wrapper.m_Game_Separuj_Papier;
         public InputAction @Separuj_Plasty => m_Wrapper.m_Game_Separuj_Plasty;
@@ -243,12 +307,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_GameActionsCallbackInterface != null)
             {
-                @R_Move.started -= m_Wrapper.m_GameActionsCallbackInterface.OnR_Move;
-                @R_Move.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnR_Move;
-                @R_Move.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnR_Move;
-                @L_Move.started -= m_Wrapper.m_GameActionsCallbackInterface.OnL_Move;
-                @L_Move.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnL_Move;
-                @L_Move.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnL_Move;
+                @Right.started -= m_Wrapper.m_GameActionsCallbackInterface.OnRight;
+                @Right.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnRight;
+                @Right.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnRight;
+                @Left.started -= m_Wrapper.m_GameActionsCallbackInterface.OnLeft;
+                @Left.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnLeft;
+                @Left.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnLeft;
                 @Separuj_Sklo.started -= m_Wrapper.m_GameActionsCallbackInterface.OnSeparuj_Sklo;
                 @Separuj_Sklo.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnSeparuj_Sklo;
                 @Separuj_Sklo.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnSeparuj_Sklo;
@@ -268,12 +332,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
             m_Wrapper.m_GameActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @R_Move.started += instance.OnR_Move;
-                @R_Move.performed += instance.OnR_Move;
-                @R_Move.canceled += instance.OnR_Move;
-                @L_Move.started += instance.OnL_Move;
-                @L_Move.performed += instance.OnL_Move;
-                @L_Move.canceled += instance.OnL_Move;
+                @Right.started += instance.OnRight;
+                @Right.performed += instance.OnRight;
+                @Right.canceled += instance.OnRight;
+                @Left.started += instance.OnLeft;
+                @Left.performed += instance.OnLeft;
+                @Left.canceled += instance.OnLeft;
                 @Separuj_Sklo.started += instance.OnSeparuj_Sklo;
                 @Separuj_Sklo.performed += instance.OnSeparuj_Sklo;
                 @Separuj_Sklo.canceled += instance.OnSeparuj_Sklo;
@@ -293,14 +357,60 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         }
     }
     public GameActions @Game => new GameActions(this);
+
+    // New action map
+    private readonly InputActionMap m_Newactionmap;
+    private INewactionmapActions m_NewactionmapActionsCallbackInterface;
+    private readonly InputAction m_Newactionmap_Newaction;
+    public struct NewactionmapActions
+    {
+        private @PlayerControls m_Wrapper;
+        public NewactionmapActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_Newactionmap_Newaction;
+        public InputActionMap Get() { return m_Wrapper.m_Newactionmap; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(NewactionmapActions set) { return set.Get(); }
+        public void SetCallbacks(INewactionmapActions instance)
+        {
+            if (m_Wrapper.m_NewactionmapActionsCallbackInterface != null)
+            {
+                @Newaction.started -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnNewaction;
+                @Newaction.performed -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnNewaction;
+                @Newaction.canceled -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnNewaction;
+            }
+            m_Wrapper.m_NewactionmapActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Newaction.started += instance.OnNewaction;
+                @Newaction.performed += instance.OnNewaction;
+                @Newaction.canceled += instance.OnNewaction;
+            }
+        }
+    }
+    public NewactionmapActions @Newactionmap => new NewactionmapActions(this);
+    private int m_XboxControlSchemeSchemeIndex = -1;
+    public InputControlScheme XboxControlSchemeScheme
+    {
+        get
+        {
+            if (m_XboxControlSchemeSchemeIndex == -1) m_XboxControlSchemeSchemeIndex = asset.FindControlSchemeIndex("Xbox Control Scheme");
+            return asset.controlSchemes[m_XboxControlSchemeSchemeIndex];
+        }
+    }
     public interface IGameActions
     {
-        void OnR_Move(InputAction.CallbackContext context);
-        void OnL_Move(InputAction.CallbackContext context);
+        void OnRight(InputAction.CallbackContext context);
+        void OnLeft(InputAction.CallbackContext context);
         void OnSeparuj_Sklo(InputAction.CallbackContext context);
         void OnSeparuj_Papier(InputAction.CallbackContext context);
         void OnSeparuj_Plasty(InputAction.CallbackContext context);
         void OnStart_Game(InputAction.CallbackContext context);
         void OnEnd_Game(InputAction.CallbackContext context);
+    }
+    public interface INewactionmapActions
+    {
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }
