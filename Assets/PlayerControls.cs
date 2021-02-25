@@ -32,7 +32,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""59ce9de3-6777-4c25-921a-7681275c3aea"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Separuj_Sklo"",
@@ -40,7 +40,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""8bb1b64e-e005-4696-b0b6-a3210cc98b67"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Separuj_Papier"",
@@ -48,7 +48,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""ed4d0cd1-d951-409e-a73a-20b46af1b08b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Separuj_Plasty"",
@@ -56,15 +56,15 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""1b01437b-8832-4965-a371-b514e3a60dc6"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
-                    ""name"": ""Start_Game"",
+                    ""name"": ""Game"",
                     ""type"": ""Button"",
                     ""id"": ""de8fd18a-c45b-45d2-8a79-66bd551fb197"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""End_Game"",
@@ -80,7 +80,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": ""2D Vector"",
                     ""id"": ""19017ee8-f286-4b34-afbd-128f52b5711b"",
                     ""path"": ""2DVector"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Right"",
@@ -101,44 +101,22 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""5f339a8b-a2bb-446a-83c3-21872b2c0d79"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Xbox Control Scheme"",
                     ""action"": ""Separuj_Sklo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""22a231c6-e151-40bd-9bf2-f7373435b1ba"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Separuj_Papier"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""35ce94ab-7fe1-4952-bacc-39635b451c41"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<XInputController>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Xbox Control Scheme"",
                     ""action"": ""Separuj_Plasty"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""405a5928-3363-4385-960a-aa08924634c0"",
-                    ""path"": ""<XboxOneGampadiOS>/dpad/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Start_Game"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -174,6 +152,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9eb60082-27dc-4b43-b891-0f6497a5dc1a"",
+                    ""path"": ""<XInputController>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox Control Scheme"",
+                    ""action"": ""Separuj_Papier"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -226,7 +215,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Game_Separuj_Sklo = m_Game.FindAction("Separuj_Sklo", throwIfNotFound: true);
         m_Game_Separuj_Papier = m_Game.FindAction("Separuj_Papier", throwIfNotFound: true);
         m_Game_Separuj_Plasty = m_Game.FindAction("Separuj_Plasty", throwIfNotFound: true);
-        m_Game_Start_Game = m_Game.FindAction("Start_Game", throwIfNotFound: true);
+        m_Game_Game = m_Game.FindAction("Game", throwIfNotFound: true);
         m_Game_End_Game = m_Game.FindAction("End_Game", throwIfNotFound: true);
         // New action map
         m_Newactionmap = asset.FindActionMap("New action map", throwIfNotFound: true);
@@ -285,7 +274,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Game_Separuj_Sklo;
     private readonly InputAction m_Game_Separuj_Papier;
     private readonly InputAction m_Game_Separuj_Plasty;
-    private readonly InputAction m_Game_Start_Game;
+    private readonly InputAction m_Game_Game;
     private readonly InputAction m_Game_End_Game;
     public struct GameActions
     {
@@ -296,7 +285,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Separuj_Sklo => m_Wrapper.m_Game_Separuj_Sklo;
         public InputAction @Separuj_Papier => m_Wrapper.m_Game_Separuj_Papier;
         public InputAction @Separuj_Plasty => m_Wrapper.m_Game_Separuj_Plasty;
-        public InputAction @Start_Game => m_Wrapper.m_Game_Start_Game;
+        public InputAction @Game => m_Wrapper.m_Game_Game;
         public InputAction @End_Game => m_Wrapper.m_Game_End_Game;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
@@ -322,9 +311,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Separuj_Plasty.started -= m_Wrapper.m_GameActionsCallbackInterface.OnSeparuj_Plasty;
                 @Separuj_Plasty.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnSeparuj_Plasty;
                 @Separuj_Plasty.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnSeparuj_Plasty;
-                @Start_Game.started -= m_Wrapper.m_GameActionsCallbackInterface.OnStart_Game;
-                @Start_Game.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnStart_Game;
-                @Start_Game.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnStart_Game;
+                @Game.started -= m_Wrapper.m_GameActionsCallbackInterface.OnGame;
+                @Game.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnGame;
+                @Game.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnGame;
                 @End_Game.started -= m_Wrapper.m_GameActionsCallbackInterface.OnEnd_Game;
                 @End_Game.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnEnd_Game;
                 @End_Game.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnEnd_Game;
@@ -347,9 +336,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Separuj_Plasty.started += instance.OnSeparuj_Plasty;
                 @Separuj_Plasty.performed += instance.OnSeparuj_Plasty;
                 @Separuj_Plasty.canceled += instance.OnSeparuj_Plasty;
-                @Start_Game.started += instance.OnStart_Game;
-                @Start_Game.performed += instance.OnStart_Game;
-                @Start_Game.canceled += instance.OnStart_Game;
+                @Game.started += instance.OnGame;
+                @Game.performed += instance.OnGame;
+                @Game.canceled += instance.OnGame;
                 @End_Game.started += instance.OnEnd_Game;
                 @End_Game.performed += instance.OnEnd_Game;
                 @End_Game.canceled += instance.OnEnd_Game;
@@ -406,7 +395,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnSeparuj_Sklo(InputAction.CallbackContext context);
         void OnSeparuj_Papier(InputAction.CallbackContext context);
         void OnSeparuj_Plasty(InputAction.CallbackContext context);
-        void OnStart_Game(InputAction.CallbackContext context);
+        void OnGame(InputAction.CallbackContext context);
         void OnEnd_Game(InputAction.CallbackContext context);
     }
     public interface INewactionmapActions

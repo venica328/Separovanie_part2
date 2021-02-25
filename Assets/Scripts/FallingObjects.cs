@@ -22,6 +22,7 @@ public class FallingObjects : MonoBehaviour
     private int fallerIndex;
     float xPos = 0;
     int rand;
+    float[] MyPositions = new float[] { -5.9f, 0, 5.6f };
 
 
     void Awake()
@@ -67,6 +68,7 @@ public class FallingObjects : MonoBehaviour
         faller.SetActive(true);
     }
 
+    
     void getFalling()
     {
         usedPositions = new List<float>();
@@ -74,8 +76,10 @@ public class FallingObjects : MonoBehaviour
         fallerIndex = Random.Range(0, faller.Length);
         currentTime = faller[fallerIndex].delayTime;
         if (faller[fallerIndex].fallingCount == 1)
-            xPos = Random.Range(-xLimit, xLimit);
-        else if(faller[fallerIndex].fallingCount > 1)
+            // xPos = Random.Range(-xLimit, xLimit);
+            xPos = MyPositions[Random.Range(0, MyPositions.Length)];
+
+        else if (faller[fallerIndex].fallingCount > 1)
         {
             rand = Random.Range(0, usedPositions.Count);
             xPos = usedPositions[rand];

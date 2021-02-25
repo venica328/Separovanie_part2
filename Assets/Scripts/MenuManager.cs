@@ -9,6 +9,7 @@ public class MenuManager : MonoBehaviour
 {
 
     public static MenuManager instance;
+    PlayerControls controls;
 
     [SerializeField]
     private Text scoreText, separatingText, finalScore, finalSeparatedScore, countDown;
@@ -17,6 +18,7 @@ public class MenuManager : MonoBehaviour
 
     private int currentSeparating, currentScore;
     private int timeLeft = 10;
+    public int counter;
 
 
 
@@ -25,6 +27,9 @@ public class MenuManager : MonoBehaviour
     {
         if (instance == null)
             instance = this;
+        controls = new PlayerControls();
+
+        controls.Game.Separuj_Papier.performed += ctx => PlayButton();
     }
 
     // Start is called before the first frame update
@@ -38,6 +43,7 @@ public class MenuManager : MonoBehaviour
             Time.timeScale = 1;
         }
 
+        //PlayButton();
 
 
     }
@@ -49,20 +55,16 @@ public class MenuManager : MonoBehaviour
         {
             Application.Quit();
             MenuManager.instance.GameOver();
-            if (InputManager.EndButton())
-            {
-                Debug.Log("Ide to Vejka");
-                HomeButton();
-            }
+            
+                if (InputManager.EndButton())
+                {
+                    Debug.Log("Ide to Vejka");
+                    HomeButton();
+                }
 
         }
+            //PlayButton();
 
-        PlayButton();
-
-        if(InputManager.RightButton())
-        {
-            Debug.Log("Ide pravy!");
-        }
     }
 
 
@@ -95,13 +97,12 @@ public class MenuManager : MonoBehaviour
 
     public void PlayButton()
     {
-        if (InputManager.StartButton())
-        {
+            counter++;
+            Debug.Log("PODARILO SA");
             menu.SetActive(false);
             gameMenu.SetActive(true);
             Player.instance.StartMoving = true;
-            
-        }
+        
     }
 
     public void GameOver()
@@ -124,5 +125,15 @@ public class MenuManager : MonoBehaviour
         menu.SetActive(true);
         gameOverMenu.SetActive(false);
 
+    }
+
+    void OnEnable()
+    {
+        controls.Game.Enable();
+    }
+
+    void OnDisable()
+    {
+        controls.Game.Disable();
     }
 }

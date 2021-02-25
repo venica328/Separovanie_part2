@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class Player : MonoBehaviour
 {
-    
+
     PlayerControls controls;
-    Vector2 move;
-    Vector3 middle = new Vector3(0f, -2.0f, 0.0f);
-    Vector3 right = new Vector3(5f, -2.0f, 0.0f);
-    Vector3 left = new Vector3(-5f, -2.0f, 0.0f);
-    Vector3 step = new Vector3(5f, 0.0f, 0.0f);
-    Vector3 start = new Vector3(0f, -2.0f, 0.0f);
-    Vector3 pom = Vector3.zero;
+
+    [SerializeField]
+    private int _currentPositionIndex;
+
+    private Vector3 player_position;
+
+    [SerializeField]
+    private Vector3[] _positions = new Vector3[]
+    {
+        new Vector3(0,0,0)
+
+    };
 
 
     private GameObject player;
@@ -32,52 +38,42 @@ public class Player : MonoBehaviour
 
         controls = new PlayerControls();
 
-      //  controls.Game.Right.performed += ctx => right = ctx.ReadValue<Vector2>();
         controls.Game.Right.performed += ctx => Move_Right();
-        controls.Game.Right.canceled += ctx => move = Vector2.zero;
 
         controls.Game.Left.performed += ctx => Move_Left();
-        controls.Game.Left.canceled += ctx => move = Vector2.zero;
-
-        
     }
 
     void Update()
     {
+            if (InputManager.EndButton())
+            {
+                Debug.Log("HomeButton");
+                MenuManager.instance.GameOver();
+                gameObject.SetActive(false);
 
-        if (InputManager.EndButton())
-        {
-            Debug.Log("HomeButton");
-            MenuManager.instance.GameOver();
-            gameObject.SetActive(false);
-
-            MenuManager.instance.HomeButton();
-            gameObject.SetActive(true);
-        }
-
-
+                MenuManager.instance.HomeButton();
+                gameObject.SetActive(true);
+            }
+        
+        
     }
 
-    public Vector3 Move_Right()
+    public void Move_Right()
     {
-        //transform.position = right;
-        //transform.position += Vector3.right * moveSpeed * Time.deltaTime;
-        transform.position = start + step;
-        transform.position += Vector3.right * moveSpeed * Time.deltaTime;
-        pom = transform.position;
-
-        return pom;
+        SetCurrentPosition(_currentPositionIndex + 1);
+        Debug.Log("volanie");
+        GetActualPosition();
     }
 
-    public Vector3 Move_Left()
+    public void Move_Left()
     {
-       
-        transform.position = pom - step;
-        transform.position += Vector3.right * moveSpeed * Time.deltaTime;
-
-        start = transform.position;
-        return start;
+        SetCurrentPosition(_currentPositionIndex - 1);
+        Debug.Log("volanie2");
+        GetActualPosition();
     }
+
+    
+
 
     void OnEnable()
     {
@@ -89,10 +85,27 @@ public class Player : MonoBehaviour
         controls.Game.Disable();
     }
 
-
-    public void OnTriggerEnter2D(Collider2D other)
+    public void SetCurrentPosition(int positionIndex)
     {
-        if(other.gameObject.name == "computer" || other.gameObject.name == "phone")
+        if (positionIndex < 0 || positionIndex >= _positions.Length)
+            return;
+
+        transform.position = _positions[positionIndex];
+        _currentPositionIndex = positionIndex;
+    }
+
+    public Vector3 GetActualPosition()
+    {
+        
+        player_position = transform.position;
+        Debug.Log(player_position);
+        return player_position;
+        
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.name == "computer" || other.gameObject.name == "phone")
         {
             Debug.Log("quit");
             gameObject.SetActive(false);
@@ -100,5 +113,4 @@ public class Player : MonoBehaviour
             gameObject.SetActive(true);
         }
     }
-
 }

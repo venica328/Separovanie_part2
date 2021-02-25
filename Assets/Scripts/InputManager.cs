@@ -15,15 +15,6 @@ public static class InputManager
         return Input.GetButton("End_Button");
     }
 
-    public static bool RightButton()
-    {
-        return Input.GetButton("Right");
-    }
-
-    public static bool LeftButton()
-    {
-        return Input.GetButton("Left_Button");
-    }
 
 
 }

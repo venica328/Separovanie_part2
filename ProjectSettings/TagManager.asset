@@ -9,6 +9,9 @@ TagManager:
   - computer
   - Clouds
   - Box
+  - Papier
+  - Plast
+  - Sklo
   layers:
   - Default
   - TransparentFX
