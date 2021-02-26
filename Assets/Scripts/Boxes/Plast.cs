@@ -13,7 +13,6 @@ public class Plast : MonoBehaviour
 
     [SerializeField]
     private int _currentPositionIndex;
-
     private Vector3 player_position;
 
     [SerializeField]
@@ -39,6 +38,7 @@ public class Plast : MonoBehaviour
         ShowPlast();
         Renderer rend = gameObject.GetComponent<Renderer>();
         rend.GetComponent<Renderer>().enabled = false;
+        SetCurrentPosition(_currentPositionIndex + 0);
     }
 
 

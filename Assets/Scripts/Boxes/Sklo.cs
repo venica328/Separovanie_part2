@@ -41,6 +41,7 @@ public class Sklo : MonoBehaviour
         ShowSklo();
         Renderer rend = gameObject.GetComponent<Renderer>();
         rend.GetComponent<Renderer>().enabled = false;
+        SetCurrentPosition(_currentPositionIndex + 0);
     }
 
 

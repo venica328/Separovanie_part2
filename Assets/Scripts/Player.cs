@@ -21,7 +21,6 @@ public class Player : MonoBehaviour
 
     };
 
-
     private GameObject player;
     public static Player instance;
 
@@ -72,9 +71,6 @@ public class Player : MonoBehaviour
         GetActualPosition();
     }
 
-    
-
-
     void OnEnable()
     {
         controls.Game.Enable();
@@ -105,12 +101,49 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!MenuManager.instance.gameOverMenu)
+            return;
+
+        if (Sklo.instance.gameObject.GetComponent<Renderer>().enabled)
+        {
+            if (other.gameObject.name != "sklo")
+            {
+                Debug.Log("SOM DEBIL NECHYTIL SOM SKLO");
+                MenuManager.instance.IncreaseScore();
+            } else
+            {
+                MenuManager.instance.IncreaseSeparating();
+            }
+        }
+        else if (Papier.instance.gameObject.GetComponent<Renderer>().enabled)
+        {
+            if (other.gameObject.name != "papier")
+            {
+                Debug.Log("SOM DEBIL NECHYTIL SOM PAPIER");
+                MenuManager.instance.IncreaseScore();
+            } else
+            {
+                MenuManager.instance.IncreaseSeparating();
+            }
+        }
+        else if (Plast.instance.gameObject.GetComponent<Renderer>().enabled)
+        {
+            if (other.gameObject.name != "plast")
+            {
+                Debug.Log("SOM DEBIL NECHYTIL SOM PLAST");
+                MenuManager.instance.IncreaseScore();
+            } else
+            {
+                MenuManager.instance.IncreaseSeparating();
+            }
+        }
+
+
         if (other.gameObject.name == "computer" || other.gameObject.name == "phone")
         {
-            Debug.Log("quit");
-            gameObject.SetActive(false);
-            MenuManager.instance.GameOver();
-            gameObject.SetActive(true);
+            Debug.Log("ELEKTRONIKA SA NESEPARUJE");
+           // MenuManager.instance.GameOver();
+            //gameObject.SetActive(true);
         }
     }
 }

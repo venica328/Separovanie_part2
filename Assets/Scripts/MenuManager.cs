@@ -14,7 +14,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private Text scoreText, separatingText, finalScore, finalSeparatedScore, countDown;
     [SerializeField]
-    private GameObject gameMenu, gameOverMenu, menu;
+    public GameObject gameMenu, gameOverMenu, menu;
 
     private int currentSeparating, currentScore;
     private int timeLeft = 10;
@@ -43,7 +43,6 @@ public class MenuManager : MonoBehaviour
             Time.timeScale = 1;
         }
 
-        //PlayButton();
 
 
     }
@@ -61,26 +60,19 @@ public class MenuManager : MonoBehaviour
                     Debug.Log("Ide to Vejka");
                     HomeButton();
                 }
-
         }
-            //PlayButton();
-
     }
 
 
     IEnumerator LoseTime()
     {
-
         while (true)
         {
             yield return new WaitForSeconds(1);
             timeLeft--;
         }
-
     }
 
-
-    // Update is called once per frame
     public void IncreaseSeparating()
     {
         currentSeparating++;
@@ -108,7 +100,7 @@ public class MenuManager : MonoBehaviour
     public void GameOver()
     {
        FallingObjects.instance.gameObject.SetActive(false);
-       Player.instance.StartMoving=(false);
+       Player.instance.StartMoving = false;
        gameMenu.SetActive(false);
        menu.SetActive(false);
        gameOverMenu.SetActive(true);

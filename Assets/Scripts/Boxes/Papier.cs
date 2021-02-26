@@ -40,6 +40,9 @@ public class Papier : MonoBehaviour
         Renderer rend = gameObject.GetComponent<Renderer>();
         rend.GetComponent<Renderer>().enabled = false;
         ShowPapier();
+        SetCurrentPosition(_currentPositionIndex + 0);
+
+
     }
 
     public void Move_Right()
@@ -55,25 +58,10 @@ public class Papier : MonoBehaviour
 
     public void ShowPapier()
     {
-        /** count++;
-
-         Renderer rend = gameObject.GetComponent<Renderer>();
-         if (count % 2 == 1)
-         {
-             rend.GetComponent<Renderer>().enabled = false;
-         }
-         else
-         {
-             rend.GetComponent<Renderer>().enabled = true;
-             // plast.SetActive(true);
-             Debug.Log("show papieeeeeeeeeeeeeeeeeer");
-         }**/
         Renderer rend = gameObject.GetComponent<Renderer>();
         rend.GetComponent<Renderer>().enabled = true;
         Plast.instance.gameObject.GetComponent<Renderer>().enabled = false;
         Sklo.instance.gameObject.GetComponent<Renderer>().enabled = false;
-
-
     }
 
     public void SetCurrentPosition(int positionIndex)
@@ -95,4 +83,7 @@ public class Papier : MonoBehaviour
     {
         controls.Game.Disable();
     }
+
+  
+
 }
