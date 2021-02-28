@@ -12,6 +12,13 @@ public class Coliders : MonoBehaviour
             gameObject.SetActive(false);
         }
 
+        if (other.CompareTag("Ground"))
+        {
+            Debug.Log("Collided with GROUND");
+            gameObject.SetActive(false);
+        }
+
+
     }
 
     

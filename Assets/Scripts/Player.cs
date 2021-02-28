@@ -52,9 +52,7 @@ public class Player : MonoBehaviour
 
                 MenuManager.instance.HomeButton();
                 gameObject.SetActive(true);
-            }
-        
-        
+            }      
     }
 
     public void Move_Right()

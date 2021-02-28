@@ -30,7 +30,6 @@ public class Sklo : MonoBehaviour
         if (instance == null) instance = this;
         controls = new PlayerControls();
         controls.Game.Separuj_Sklo.performed += ctx => ShowSklo();
-
         controls.Game.Right.performed += ctx => Move_Right();
 
         controls.Game.Left.performed += ctx => Move_Left();
@@ -38,7 +37,10 @@ public class Sklo : MonoBehaviour
     }
     private void Start()
     {
-        ShowSklo();
+        if (MenuManager.instance.gameMenu)
+        {
+            ShowSklo();
+        }
         Renderer rend = gameObject.GetComponent<Renderer>();
         rend.GetComponent<Renderer>().enabled = false;
         SetCurrentPosition(_currentPositionIndex + 0);

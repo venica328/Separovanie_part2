@@ -17,8 +17,8 @@ public class MenuManager : MonoBehaviour
     public GameObject gameMenu, gameOverMenu, menu;
 
     private int currentSeparating, currentScore;
-    private int timeLeft = 10;
-    public int counter;
+    private int timeLeft = 60;
+    public int counter = 0;
 
 
 
@@ -27,9 +27,15 @@ public class MenuManager : MonoBehaviour
     {
         if (instance == null)
             instance = this;
+
         controls = new PlayerControls();
 
+
         controls.Game.Separuj_Papier.performed += ctx => PlayButton();
+        
+        
+
+
     }
 
     // Start is called before the first frame update
@@ -43,8 +49,6 @@ public class MenuManager : MonoBehaviour
             Time.timeScale = 1;
         }
 
-
-
     }
 
     void Update()
@@ -52,15 +56,18 @@ public class MenuManager : MonoBehaviour
         countDown.text = ("" + timeLeft);
         if (timeLeft == 0)
         {
-            Application.Quit();
             MenuManager.instance.GameOver();
-            
-                if (InputManager.EndButton())
-                {
-                    Debug.Log("Ide to Vejka");
-                    HomeButton();
-                }
+            controls.Game.Separuj_Papier.performed += ctx => QuitApplication();
+
+            if (InputManager.EndButton())
+            {
+                Debug.Log("NAVRAT NA MENU");
+                HomeButton();
+            }
         }
+
+
+
     }
 
 
@@ -89,11 +96,10 @@ public class MenuManager : MonoBehaviour
 
     public void PlayButton()
     {
-            counter++;
-            Debug.Log("PODARILO SA");
-            menu.SetActive(false);
-            gameMenu.SetActive(true);
-            Player.instance.StartMoving = true;
+        Debug.Log("PODARILO SA");
+        menu.SetActive(false);
+        gameMenu.SetActive(true);
+        Player.instance.StartMoving = true;
         
     }
 
@@ -106,7 +112,7 @@ public class MenuManager : MonoBehaviour
        gameOverMenu.SetActive(true);
        finalScore.text = "Spadnuté: " + currentScore;
        finalSeparatedScore.text = "Vyzbierané: " + currentSeparating;
-     }
+    }
 
     public void HomeButton()
     {
@@ -117,6 +123,12 @@ public class MenuManager : MonoBehaviour
         menu.SetActive(true);
         gameOverMenu.SetActive(false);
 
+    }
+
+    public void QuitApplication()
+    {
+        Debug.Log("JE KONIEC");
+        Application.Quit();
     }
 
     void OnEnable()
