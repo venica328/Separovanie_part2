@@ -72,7 +72,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""78f37276-4ae9-46a3-9d8e-f9cf4ac30386"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -93,7 +93,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<XInputController>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Xbox Control Scheme"",
                     ""action"": ""Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -123,10 +123,10 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""970d0d09-998f-4021-a23e-1519f60676f7"",
-                    ""path"": ""<Keyboard>/anyKey"",
+                    ""path"": ""<XInputController>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Xbox Control Scheme"",
                     ""action"": ""End_Game"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -167,13 +167,13 @@ public class @PlayerControls : IInputActionCollection, IDisposable
             ]
         },
         {
-            ""name"": ""New action map"",
-            ""id"": ""7530fae0-a8c9-4657-8ac8-6e96fba71163"",
+            ""name"": ""Keyboard"",
+            ""id"": ""2d1e4298-9f80-4d4f-84c5-cd7db4713b69"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""w"",
                     ""type"": ""Button"",
-                    ""id"": ""3f630f6d-8275-4bc5-98cb-24a59b704e36"",
+                    ""id"": ""dd811893-e854-4b33-b768-3af389a92e4a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -182,12 +182,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""7409e7f5-6490-48cb-924c-5ae4c922815f"",
-                    ""path"": """",
-                    ""interactions"": """",
+                    ""id"": ""1d6df6d7-229d-4c0f-a421-ec847a8bef62"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
+                    ""groups"": ""Keyboard control scheme"",
+                    ""action"": ""w"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -205,6 +205,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""isOR"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Keyboard control scheme"",
+            ""bindingGroup"": ""Keyboard control scheme"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
         }
     ]
 }");
@@ -217,9 +228,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Game_Separuj_Plasty = m_Game.FindAction("Separuj_Plasty", throwIfNotFound: true);
         m_Game_Game = m_Game.FindAction("Game", throwIfNotFound: true);
         m_Game_End_Game = m_Game.FindAction("End_Game", throwIfNotFound: true);
-        // New action map
-        m_Newactionmap = asset.FindActionMap("New action map", throwIfNotFound: true);
-        m_Newactionmap_Newaction = m_Newactionmap.FindAction("New action", throwIfNotFound: true);
+        // Keyboard
+        m_Keyboard = asset.FindActionMap("Keyboard", throwIfNotFound: true);
+        m_Keyboard_w = m_Keyboard.FindAction("w", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -347,38 +358,38 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     }
     public GameActions @Game => new GameActions(this);
 
-    // New action map
-    private readonly InputActionMap m_Newactionmap;
-    private INewactionmapActions m_NewactionmapActionsCallbackInterface;
-    private readonly InputAction m_Newactionmap_Newaction;
-    public struct NewactionmapActions
+    // Keyboard
+    private readonly InputActionMap m_Keyboard;
+    private IKeyboardActions m_KeyboardActionsCallbackInterface;
+    private readonly InputAction m_Keyboard_w;
+    public struct KeyboardActions
     {
         private @PlayerControls m_Wrapper;
-        public NewactionmapActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Newactionmap_Newaction;
-        public InputActionMap Get() { return m_Wrapper.m_Newactionmap; }
+        public KeyboardActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @w => m_Wrapper.m_Keyboard_w;
+        public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(NewactionmapActions set) { return set.Get(); }
-        public void SetCallbacks(INewactionmapActions instance)
+        public static implicit operator InputActionMap(KeyboardActions set) { return set.Get(); }
+        public void SetCallbacks(IKeyboardActions instance)
         {
-            if (m_Wrapper.m_NewactionmapActionsCallbackInterface != null)
+            if (m_Wrapper.m_KeyboardActionsCallbackInterface != null)
             {
-                @Newaction.started -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnNewaction;
-                @Newaction.performed -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnNewaction;
-                @Newaction.canceled -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnNewaction;
+                @w.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnW;
+                @w.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnW;
+                @w.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnW;
             }
-            m_Wrapper.m_NewactionmapActionsCallbackInterface = instance;
+            m_Wrapper.m_KeyboardActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Newaction.started += instance.OnNewaction;
-                @Newaction.performed += instance.OnNewaction;
-                @Newaction.canceled += instance.OnNewaction;
+                @w.started += instance.OnW;
+                @w.performed += instance.OnW;
+                @w.canceled += instance.OnW;
             }
         }
     }
-    public NewactionmapActions @Newactionmap => new NewactionmapActions(this);
+    public KeyboardActions @Keyboard => new KeyboardActions(this);
     private int m_XboxControlSchemeSchemeIndex = -1;
     public InputControlScheme XboxControlSchemeScheme
     {
@@ -386,6 +397,15 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         {
             if (m_XboxControlSchemeSchemeIndex == -1) m_XboxControlSchemeSchemeIndex = asset.FindControlSchemeIndex("Xbox Control Scheme");
             return asset.controlSchemes[m_XboxControlSchemeSchemeIndex];
+        }
+    }
+    private int m_KeyboardcontrolschemeSchemeIndex = -1;
+    public InputControlScheme KeyboardcontrolschemeScheme
+    {
+        get
+        {
+            if (m_KeyboardcontrolschemeSchemeIndex == -1) m_KeyboardcontrolschemeSchemeIndex = asset.FindControlSchemeIndex("Keyboard control scheme");
+            return asset.controlSchemes[m_KeyboardcontrolschemeSchemeIndex];
         }
     }
     public interface IGameActions
@@ -398,8 +418,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnGame(InputAction.CallbackContext context);
         void OnEnd_Game(InputAction.CallbackContext context);
     }
-    public interface INewactionmapActions
+    public interface IKeyboardActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnW(InputAction.CallbackContext context);
     }
 }

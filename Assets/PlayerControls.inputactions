@@ -59,7 +59,7 @@
                     "id": "78f37276-4ae9-46a3-9d8e-f9cf4ac30386",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -80,7 +80,7 @@
                     "path": "<XInputController>/dpad/right",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Xbox Control Scheme",
                     "action": "Right",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -110,10 +110,10 @@
                 {
                     "name": "",
                     "id": "970d0d09-998f-4021-a23e-1519f60676f7",
-                    "path": "<Keyboard>/anyKey",
+                    "path": "<XInputController>/buttonEast",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Xbox Control Scheme",
                     "action": "End_Game",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -154,13 +154,13 @@
             ]
         },
         {
-            "name": "New action map",
-            "id": "7530fae0-a8c9-4657-8ac8-6e96fba71163",
+            "name": "Keyboard",
+            "id": "2d1e4298-9f80-4d4f-84c5-cd7db4713b69",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "w",
                     "type": "Button",
-                    "id": "3f630f6d-8275-4bc5-98cb-24a59b704e36",
+                    "id": "dd811893-e854-4b33-b768-3af389a92e4a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -169,12 +169,12 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "7409e7f5-6490-48cb-924c-5ae4c922815f",
-                    "path": "",
-                    "interactions": "",
+                    "id": "1d6df6d7-229d-4c0f-a421-ec847a8bef62",
+                    "path": "<Keyboard>/w",
+                    "interactions": "Press",
                     "processors": "",
-                    "groups": "",
-                    "action": "New action",
+                    "groups": "Keyboard control scheme",
+                    "action": "w",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -188,6 +188,17 @@
             "devices": [
                 {
                     "devicePath": "<XboxOneGampadiOS>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Keyboard control scheme",
+            "bindingGroup": "Keyboard control scheme",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
                     "isOptional": false,
                     "isOR": false
                 }

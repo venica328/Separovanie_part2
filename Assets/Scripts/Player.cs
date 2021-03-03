@@ -6,53 +6,87 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-
     PlayerControls controls;
-
-    [SerializeField]
+    [SerializeField] 
     private int _currentPositionIndex;
-
     private Vector3 player_position;
-
     [SerializeField]
     private Vector3[] _positions = new Vector3[]
     {
         new Vector3(0,0,0)
-
     };
-
     private GameObject player;
-    public static Player instance;
-
+    public static Player Instance;
     [SerializeField]
     private float moveSpeed;
-
     private bool startMoving = false;
-
     public bool StartMoving { get { return startMoving; } set { startMoving = value; } }
+
+    private Vector2 target;
+    private void Start()
+    {
+        target = transform.position;
+    }
 
     void Awake()
     {
-        if (instance == null) instance = this;
-
+        if (Instance == null) Instance = this;
         controls = new PlayerControls();
-
         controls.Game.Right.performed += ctx => Move_Right();
-
         controls.Game.Left.performed += ctx => Move_Left();
     }
 
     void Update()
     {
-            if (InputManager.EndButton())
-            {
-                Debug.Log("HomeButton");
-                MenuManager.instance.GameOver();
-                gameObject.SetActive(false);
+        Keyboard kb = InputSystem.GetDevice<Keyboard>();
+        if(MenuManager.instance.timeLeft == 0)
+        {
+            controls.Game.End_Game.performed += ctx => MenuManager.instance.HomeButton();
 
+            if (kb.enterKey.wasPressedThisFrame)
+            {
+                Debug.Log("home cez enter");
                 MenuManager.instance.HomeButton();
-                gameObject.SetActive(true);
-            }      
+            }
+        }
+        if (kb.leftArrowKey.wasPressedThisFrame)
+        {
+            Debug.Log("left move");
+            Move_Left();
+        }
+        if (kb.rightArrowKey.wasPressedThisFrame)
+        {
+            Debug.Log("right move");
+            Move_Right();
+        }
+
+        Mouse mouse = InputSystem.GetDevice<Mouse>();
+        if (mouse.leftButton.wasPressedThisFrame)
+        {
+            target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if(target.x >= -2 || target.x <= 2 && _currentPositionIndex != 1 && _currentPositionIndex == 0)
+            {
+                Debug.Log("JE VACSI AKO TARGET.X");
+                Move_Right();
+            }
+            if (target.x >= -2 || target.x <= 2 && _currentPositionIndex != 0 && _currentPositionIndex == 2)
+            {
+                Debug.Log("JE VACSI AKO TARGET.X");
+                Move_Left();
+            }
+            if (target.x < -2 && _currentPositionIndex != 0)
+            {
+                Move_Left();
+            }
+            if (target.x > -2 && _currentPositionIndex != 1)
+            {
+                Move_Right();
+            }
+            if (target.x > 2 && _currentPositionIndex != 2)
+            {
+                Move_Right();
+            }
+        }
     }
 
     public void Move_Right()
@@ -90,19 +124,16 @@ public class Player : MonoBehaviour
 
     public Vector3 GetActualPosition()
     {
-        
         player_position = transform.position;
         Debug.Log(player_position);
         return player_position;
-        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!MenuManager.instance.gameOverMenu)
             return;
-
-        if (Sklo.instance.gameObject.GetComponent<Renderer>().enabled)
+        if (Glass.instance.gameObject.GetComponent<Renderer>().enabled)
         {
             if (other.gameObject.name != "sklo")
             {
@@ -113,7 +144,7 @@ public class Player : MonoBehaviour
                 MenuManager.instance.IncreaseSeparating();
             }
         }
-        else if (Papier.instance.gameObject.GetComponent<Renderer>().enabled)
+        else if (Paper.instance.gameObject.GetComponent<Renderer>().enabled)
         {
             if (other.gameObject.name != "papier")
             {
@@ -124,7 +155,7 @@ public class Player : MonoBehaviour
                 MenuManager.instance.IncreaseSeparating();
             }
         }
-        else if (Plast.instance.gameObject.GetComponent<Renderer>().enabled)
+        else if (Plastic.instance.gameObject.GetComponent<Renderer>().enabled)
         {
             if (other.gameObject.name != "plast")
             {
@@ -136,12 +167,9 @@ public class Player : MonoBehaviour
             }
         }
 
-
         if (other.gameObject.name == "computer" || other.gameObject.name == "phone")
         {
             Debug.Log("ELEKTRONIKA SA NESEPARUJE");
-           // MenuManager.instance.GameOver();
-            //gameObject.SetActive(true);
         }
     }
 }

@@ -9,21 +9,16 @@ public class FallingObjects : MonoBehaviour
 
     [SerializeField]
     private float xLimit;
-
     [SerializeField]
     private float[] xPositions;
-
     [SerializeField]
     private Faller[] faller;
-
     private float currentTime;
-
     List<float> usedPositions = new List<float>();
     private int fallerIndex;
     float xPos = 0;
     int rand;
     float[] MyPositions = new float[] { -5.5f, 0, 5.5f };
-
 
     void Awake()
     {
@@ -38,10 +33,9 @@ public class FallingObjects : MonoBehaviour
         usedPositions.AddRange(xPositions);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Player.instance.StartMoving == true)
+        if(Player.Instance.StartMoving == true)
         {
             currentTime -= Time.deltaTime;
             if(currentTime <= 0)
@@ -76,9 +70,6 @@ public class FallingObjects : MonoBehaviour
                 fallingObjectName = "computer";
                 break;
         }
-
-
-
         GameObject faller = PoolOptimalize.instance.GetObjectFromPool(fallingObjectName);
         faller.transform.position = new Vector3(xPos, transform.position.y, 0);
         faller.SetActive(true);

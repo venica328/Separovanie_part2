@@ -26,7 +26,7 @@ public class Clouds : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Player.instance.StartMoving == true) { 
+        if (Player.Instance.StartMoving == true) { 
             ChangeDirection();
 
         transform.position += Vector3.right * moveSpeed * Time.deltaTime * direction;

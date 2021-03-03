@@ -12,6 +12,7 @@ TagManager:
   - Papier
   - Plast
   - Sklo
+  - PlayButton
   layers:
   - Default
   - TransparentFX

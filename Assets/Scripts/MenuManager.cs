@@ -7,69 +7,61 @@ using UnityEngine.InputSystem;
 
 public class MenuManager : MonoBehaviour
 {
-
     public static MenuManager instance;
     PlayerControls controls;
 
     [SerializeField]
     private Text scoreText, separatingText, finalScore, finalSeparatedScore, countDown;
     [SerializeField]
-    public GameObject gameMenu, gameOverMenu, menu;
+    public GameObject gameMenu, gameOverMenu, menu, playButton;
 
     private int currentSeparating, currentScore;
-    private int timeLeft = 60;
+    public int timeLeft = 10;
     public int counter = 0;
-
-
-
 
     void Awake()
     {
         if (instance == null)
             instance = this;
-
         controls = new PlayerControls();
-
-
         controls.Game.Separuj_Papier.performed += ctx => PlayButton();
-        
-        
-
-
+        controls.Game.Separuj_Papier.canceled += ctx => Paper.instance.ShowPaper();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         scoreText.text = "" + 0;
         separatingText.text = "" + 0;
-        if (gameMenu)
-        {
-            StartCoroutine("LoseTime");
-            Time.timeScale = 1;
-        }
-
+        controls.Game.End_Game.performed += ctx => QuitApplication();
     }
 
     void Update()
     {
+        Keyboard kb = InputSystem.GetDevice<Keyboard>();
+        if (kb.enterKey.wasPressedThisFrame)
+        {
+            Debug.Log("start cez enter");
+            PlayButton();
+        }
+        if (kb.escapeKey.wasPressedThisFrame)
+        {
+            Debug.Log("koniec cez escape");
+            QuitApplication();
+        }
+
         countDown.text = ("" + timeLeft);
         if (timeLeft == 0)
         {
             MenuManager.instance.GameOver();
             controls.Game.Separuj_Papier.performed += ctx => QuitApplication();
-
-            if (InputManager.EndButton())
+            controls.Game.End_Game.performed += ctx => HomeButton();
+            if (kb.escapeKey.wasPressedThisFrame)
             {
-                Debug.Log("NAVRAT NA MENU");
-                HomeButton();
+                Debug.Log("koniec cez escape");
+                QuitApplication();
             }
         }
-
-
-
     }
-
 
     IEnumerator LoseTime()
     {
@@ -93,36 +85,38 @@ public class MenuManager : MonoBehaviour
         scoreText.text = "" + currentScore;
     }
 
-
+    
     public void PlayButton()
     {
-        Debug.Log("PODARILO SA");
+        StartCoroutine("LoseTime");
+        Time.timeScale = 1;
+        Debug.Log("PLAY BUTTON");
         menu.SetActive(false);
         gameMenu.SetActive(true);
-        Player.instance.StartMoving = true;
-        
+        Player.Instance.StartMoving = true;
+        FallingObjects.instance.gameObject.SetActive(true);
+        controls.Game.End_Game.Disable();
     }
 
     public void GameOver()
     {
        FallingObjects.instance.gameObject.SetActive(false);
-       Player.instance.StartMoving = false;
+       Player.Instance.StartMoving = false;
        gameMenu.SetActive(false);
        menu.SetActive(false);
        gameOverMenu.SetActive(true);
        finalScore.text = "Spadnuté: " + currentScore;
-       finalSeparatedScore.text = "Vyzbierané: " + currentSeparating;
+       finalSeparatedScore.text = "Vyzbierané: " + currentSeparating;        
     }
 
     public void HomeButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         FallingObjects.instance.gameObject.SetActive(false);
-        Player.instance.StartMoving = (false);
+        Player.Instance.StartMoving = (false);
         gameMenu.SetActive(false);
         menu.SetActive(true);
         gameOverMenu.SetActive(false);
-
     }
 
     public void QuitApplication()
